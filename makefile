@@ -9,7 +9,7 @@ MAJOR=1
 MINOR=0
 VERSION=$(MAJOR).$(MINOR)
 
-TARGETS:=qdpll_main.o qdpll_app.o libqdpll.a
+TARGETS:=qdpll_main.o qdpll_app.o libqdpll.a libqdpll_pic.a
 
 UNAME:=$(shell uname)
 
@@ -67,6 +67,10 @@ qdpll.h qdpll_dep_man_qdag_types.h qdpll_stack.h \
 qdpll_internals.h
 
 libqdpll.a: qdpll.o qdpll_pqueue.o qdpll_mem.o qdpll_dep_man_qdag.o qdpll_dynamic_nenofex.o ./nenofex/nenofex.o ./nenofex/stack.o ./nenofex/queue.o ./nenofex/mem.o ./nenofex/atpg.o  ./picosat/picosat.o
+	ar rc $@ $^
+	ranlib $@
+
+libqdpll_pic.a: qdpll.fpico qdpll_pqueue.fpico qdpll_mem.fpico qdpll_dep_man_qdag.fpico qdpll_dynamic_nenofex.fpico ./nenofex/nenofex.fpico ./nenofex/stack.fpico ./nenofex/queue.fpico ./nenofex/mem.fpico ./nenofex/atpg.fpico  ./picosat/picosat.fpico
 	ar rc $@ $^
 	ranlib $@
 
